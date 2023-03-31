@@ -25,9 +25,7 @@ class _SearchEventState extends State<SearchEvent> {
     super.initState();
   }
 
-  void printlatest() {
-    print(controller.text);
-  }
+  void printlatest() {}
 
   @override
   void dispose() {
@@ -40,136 +38,73 @@ class _SearchEventState extends State<SearchEvent> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Search'),
+          elevation: 0,
+          title: Text(
+            'Search',
+            style: TextStyle(color: Colors.black),
+          ),
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
         ),
-        body: Container(
-            child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                // Add padding around the search bar
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                // Use a Material design search bar
-                child: TextField(
-                  controller: controller,
-                  decoration: InputDecoration(
-                    hintText: 'Search...',
-                    // Add a clear button to the search bar
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.clear),
-                      onPressed: () => controller.clear(),
-                    ),
-                    // Add a search icon or button to the search bar
-                    prefixIcon: IconButton(
-                      icon: Icon(Icons.search),
-                      onPressed: () {
-                        // Perform the search here
-                      },
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  // Add padding around the search bar
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  // Use a Material design search bar
+                  child: TextField(
+                    controller: controller,
+                    decoration: InputDecoration(
+                      hintText: 'Type Event',
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.clear),
+                        onPressed: () => controller.clear(),
+                      ),
+                      prefixIcon: IconButton(
+                        icon: Icon(
+                          Icons.search,
+                          color: Colors.blue,
+                        ),
+                        onPressed: () {},
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            SingleChildScrollView(
-              child: BlocProvider(
-                create: (context) =>
-                    SpecificeventBloc(EventRepository(), controller.text)
-                      ..add(LoadSpecificEvent()),
-                child: BlocBuilder<SpecificeventBloc, SpecificeventState>(
-                    builder: ((context, state) {
-                  print(state);
-                  if (state is SpecificeventLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  if (state is SpecificeventLoaded) {
-                    List<SingleEvent> eventsList = state.events;
-                    return ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemBuilder: ((_, index) {
-                        return EventTile(eventsList[index]);
-                      }),
-                      itemCount: eventsList.length,
-                    );
-                  }
-                  return Text('');
-                })),
+              SizedBox(
+                height: 710,
+                child: BlocProvider(
+                  create: (context) =>
+                      SpecificeventBloc(EventRepository(), controller.text)
+                        ..add(LoadSpecificEvent()),
+                  child: BlocBuilder<SpecificeventBloc, SpecificeventState>(
+                      builder: ((context, state) {
+                    print(state);
+                    if (state is SpecificeventLoading) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (state is SpecificeventLoaded) {
+                      List<SingleEvent> eventsList = state.events;
+                      return ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemBuilder: ((_, index) {
+                          return EventTile(eventsList[index]);
+                        }),
+                        itemCount: eventsList.length,
+                      );
+                    }
+                    return Text('');
+                  })),
+                ),
               ),
-            ),
-          ],
-        ))
-        // body: SingleChildScrollView(
-        //   child: Column(
-        //     children: [
-        //       Padding(
-        //         padding: const EdgeInsets.all(8.0),
-        //         child: Container(
-        //           // Add padding around the search bar
-        //           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        //           // Use a Material design search bar
-        //           child: TextField(
-        //             controller: controller,
-        //             decoration: InputDecoration(
-        //               hintText: 'Search...',
-        //               // Add a clear button to the search bar
-        //               suffixIcon: IconButton(
-        //                 icon: Icon(Icons.clear),
-        //                 onPressed: () => controller.clear(),
-        //               ),
-        //               // Add a search icon or button to the search bar
-        //               prefixIcon: IconButton(
-        //                 icon: Icon(Icons.search),
-        //                 onPressed: () {
-        //                   // Perform the search here
-        //                 },
-        //               ),
-        //               border: OutlineInputBorder(
-        //                 borderRadius: BorderRadius.circular(20.0),
-        //               ),
-        //             ),
-        //           ),
-        //         ),
-        //       ),
-        //       BlocProvider(
-        //         // lazy: false,
-        //         create: (context) => SpecificeventBloc(
-        //             EventRepository(), controller.text.toString())
-        //           ..add(LoadSpecificEvent()),
-        //         child: BlocBuilder<SpecificeventBloc, SpecificeventState>(
-        //             builder: ((context, state) {
-        //           print(state);
-        //           if (state is SpecificeventLoading) {
-        //             return Center(
-        //               child: CircularProgressIndicator(),
-        //             );
-        //           }
-        //           if (state is SpecificeventLoaded) {
-        //             print('object ${controller.text.toString()}');
-        //             print(state);
-        //             List<SingleEvent> eventsList = state.events;
-        //             print(eventsList);
-        //             print(eventsList.length);
-        //             return ListView.builder(
-        //               // scrollDirection: Axis.vertical,
-        //               // shrinkWrap: true,
-        //               itemBuilder: ((context, index) {
-        //                 return EventTile(eventsList[index]);
-        //               }),
-        //               itemCount: eventsList.length,
-        //             );
-        //           }
-        //           return Container();
-        //         })),
-        //       ),
-        //     ],
-        //   ),
-        // ),
-        );
+            ],
+          ),
+        ));
   }
 }

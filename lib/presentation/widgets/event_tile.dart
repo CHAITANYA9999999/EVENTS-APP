@@ -1,5 +1,6 @@
 import 'package:events_app/data/models/single_event.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../screens/event_details.dart';
 
@@ -27,19 +28,44 @@ class EventTile extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 6, right: 6),
+                padding: const EdgeInsets.only(left: 18, right: 6),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text(event.date_time),
-                    Text(event.title),
                     Row(
                       children: [
-                        Icon(Icons.location_on),
-                        Text(event.venue_city),
-                        Text('.'),
-                        Text(event.venue_country)
+                        Text(
+                          DateFormat.yMMMd()
+                              .format(DateTime.parse(event.date_time)),
+                          style: Theme.of(context).textTheme.displayMedium,
+                        ),
+                        Text(
+                          ' , ',
+                          style: Theme.of(context).textTheme.displayMedium,
+                        ),
+                        Text(event.date_time.substring(11, 16),
+                            style: Theme.of(context).textTheme.displayMedium),
+                        Text(
+                          'PM',
+                          style: Theme.of(context).textTheme.displayMedium,
+                        ),
                       ],
+                    ),
+                    Text(event.title),
+                    FittedBox(
+                      fit: BoxFit.contain,
+                      child: Row(
+                        children: [
+                          Icon(Icons.location_on),
+                          Text(event.venue_city),
+                          Text('.'),
+                          Text(
+                            event.venue_country,
+                            style: TextStyle(fontSize: 12),
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),
