@@ -25,7 +25,9 @@ class _SearchEventState extends State<SearchEvent> {
     super.initState();
   }
 
-  void printlatest() {}
+  void printlatest() {
+    print(controller.text);
+  }
 
   @override
   void dispose() {
@@ -39,12 +41,12 @@ class _SearchEventState extends State<SearchEvent> {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: Text(
+          title: const Text(
             'Search',
             style: TextStyle(color: Colors.black),
           ),
           backgroundColor: Colors.white,
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: const IconThemeData(color: Colors.black),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -60,11 +62,11 @@ class _SearchEventState extends State<SearchEvent> {
                     decoration: InputDecoration(
                       hintText: 'Type Event',
                       suffixIcon: IconButton(
-                        icon: Icon(Icons.clear),
+                        icon: const Icon(Icons.clear),
                         onPressed: () => controller.clear(),
                       ),
                       prefixIcon: IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.search,
                           color: Colors.blue,
                         ),
@@ -77,6 +79,7 @@ class _SearchEventState extends State<SearchEvent> {
               SizedBox(
                 height: 710,
                 child: BlocProvider(
+                  lazy: false,
                   create: (context) =>
                       SpecificeventBloc(EventRepository(), controller.text)
                         ..add(LoadSpecificEvent()),
@@ -99,7 +102,7 @@ class _SearchEventState extends State<SearchEvent> {
                         itemCount: eventsList.length,
                       );
                     }
-                    return Text('');
+                    return const Text('');
                   })),
                 ),
               ),

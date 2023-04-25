@@ -16,14 +16,14 @@ class EventTile extends StatelessWidget {
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
         child: Container(
-          padding: EdgeInsets.all(6),
+          padding: const EdgeInsets.all(6),
           width: MediaQuery.of(context).size.width,
           height: 100,
           child: Row(
             children: [
               Container(
                 child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(18)),
+                  borderRadius: const BorderRadius.all(Radius.circular(18)),
                   child: Image.network(event.banner_image),
                 ),
               ),
@@ -57,12 +57,12 @@ class EventTile extends StatelessWidget {
                       fit: BoxFit.contain,
                       child: Row(
                         children: [
-                          Icon(Icons.location_on),
+                          const Icon(Icons.location_on),
                           Text(event.venue_city),
-                          Text('.'),
+                          const Text('.'),
                           Text(
                             event.venue_country,
-                            style: TextStyle(fontSize: 12),
+                            style: const TextStyle(fontSize: 12),
                           )
                         ],
                       ),

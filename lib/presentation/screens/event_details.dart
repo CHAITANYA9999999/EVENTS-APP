@@ -93,7 +93,7 @@ class EventDetailScreen extends StatelessWidget {
                               ),
                               Text(
                                 event.description,
-                                style: TextStyle(fontSize: 25),
+                                style: const TextStyle(fontSize: 25),
                               ),
                             ],
                           ),

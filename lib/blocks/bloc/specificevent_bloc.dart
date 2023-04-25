@@ -16,7 +16,8 @@ class SpecificeventBloc extends Bloc<SpecificeventEvent, SpecificeventState> {
     on<LoadSpecificEvent>((event, emit) async {
       emit(SpecificeventLoading());
       try {
-        final loadedevent = await _eventRepository.getEvents(controller);
+        final loadedevent =
+            await _eventRepository.getSpecificEvents(controller);
         emit(SpecificeventLoaded(loadedevent));
       } catch (e) {}
     });

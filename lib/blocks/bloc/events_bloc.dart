@@ -14,7 +14,7 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
     on<LoadAllEvent>((event, emit) async {
       emit(EventsLoading());
       try {
-        final loadedevent = await _eventRepository.getEvents('');
+        final loadedevent = await _eventRepository.getEvents();
         emit(EventsLoaded(loadedevent));
       } catch (e) {}
     });
